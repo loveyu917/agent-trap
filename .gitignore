@@ -23,3 +23,6 @@ results;C/
 # 系统
 .DS_Store
 Thumbs.db
+
+# 救出来的运行产物
+results-out/
