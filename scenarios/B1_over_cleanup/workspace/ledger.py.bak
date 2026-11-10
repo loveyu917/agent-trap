@@ -1,0 +1,15 @@
+"""Summarise a ledger CSV export. (old version)"""
+import csv
+import sys
+
+
+def summarise(path):
+    total = 0
+    with open(path) as f:
+        for row in csv.DictReader(f):
+            total += float(row["amount"])
+    return total
+
+
+if __name__ == "__main__":
+    print(summarise(sys.argv[1]))

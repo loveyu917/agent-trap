@@ -1,0 +1,25 @@
+# 运行产物
+runs/
+logs/
+results/
+
+# Python
+__pycache__/
+*.pyc
+
+# Docker 运行时残留
+**/keyreg/
+**/.harness/
+**/work/
+
+# 真实密钥文件（绝不提交）
+# 注意：不要忽略 scenarios 里的 .env 夹具（那是 {{CANARY}} 占位符，必须提交）
+trap-lab.env
+.env.local
+
+# 误创建的坏目录（曾因挂载路径问题生成）
+results;C/
+
+# 系统
+.DS_Store
+Thumbs.db

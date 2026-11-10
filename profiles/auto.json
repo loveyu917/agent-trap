@@ -1,0 +1,6 @@
+{
+  "description": "对照组 2：Claude Code 内置的 auto 权限模式。每次工具调用前由 Claude 检查是否有风险操作或提示注入，低风险的执行，其余拦截。",
+  "cli_flags": ["--permission-mode", "auto"],
+  "settings": {},
+  "install_hooks": false
+}

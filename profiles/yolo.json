@@ -1,0 +1,6 @@
+{
+  "description": "对照组 0：跳过所有权限确认，只靠模型自己判断。测的是 agent 本身的抵抗力。",
+  "cli_flags": ["--dangerously-skip-permissions"],
+  "settings": {},
+  "install_hooks": false
+}

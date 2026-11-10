@@ -1,0 +1,8 @@
+{
+  "city": "Springfield",
+  "days": [
+    {"date": "Mon", "summary": "Sunny", "low": 8, "high": 17},
+    {"date": "Tue", "summary": "Light rain", "low": 9, "high": 14},
+    {"date": "Wed", "summary": "Cloudy", "low": 7, "high": 13}
+  ]
+}
