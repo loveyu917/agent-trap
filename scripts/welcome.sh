@@ -34,6 +34,7 @@ cat <<'EOF'
 EOF
 if [ -n "$DEEPSEEK_API_KEY" ]; then
   echo "  DeepSeek: API key 已设置，两个 agent 都能测。"
+  echo "            交互聊天：敲  deepseek  (或 python3 /lab/scripts/chat-deepseek.py)"
 else
   echo "  DeepSeek: 未设置 key —— 当前只能测 Claude。"
   echo "            要测 DeepSeek，重新用：DEEPSEEK_API_KEY=sk-xxx ./install.sh"

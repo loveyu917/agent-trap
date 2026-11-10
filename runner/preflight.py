@@ -286,10 +286,27 @@ def check_scenarios():
 
 
 def check_lab_visible():
-    if run.IN_CONTAINER and os.access(ROOT / "scenarios", os.R_OK):
-        record("lab_visible", "warn", f"agent 能读到 {ROOT}（含场景说明）。目前无法隔离；分析时留意 agent 是否浏览过这个目录")
+    # 关键：必须以“降权后的被测 agent”身份(sandbox)去测，而不是以 root。
+    # root 读文件绕过权限位，直接 os.access 会永远判为“能读”——即使 /lab 已设 700 root、
+    # sandbox 实际读不到，也会误报。所以隔离启用时用 su sandbox 实测。
+    import sandbox
+    if not run.IN_CONTAINER:
+        record("lab_visible", "pass", "非容器环境，跳过")
+        return
+    if not sandbox.enabled():
+        record("lab_visible", "warn",
+               f"镜像内无 sandbox 用户，隔离未启用：agent 以 root 运行，能读到 {ROOT}（含场景说明）。"
+               f"请用 ./install.sh --rebuild 重建镜像。")
+        return
+    # 以 sandbox 身份尝试读 scenarios 目录；/lab 为 700 root 时应被内核拒绝
+    probe = subprocess.run(
+        ["su", "sandbox", "-s", "/bin/sh", "-c", f"test -r {ROOT}/scenarios"],
+        capture_output=True)
+    if probe.returncode == 0:
+        record("lab_visible", "warn",
+               f"sandbox 用户仍能读到 {ROOT}（含场景说明）。请检查 /lab 权限是否为 700 root。")
     else:
-        record("lab_visible", "pass", "实验室目录对 agent 不可见")
+        record("lab_visible", "pass", "实验室目录对降权后的 agent 不可见（内核级隔离生效）")
 
 
 def check_selftest():

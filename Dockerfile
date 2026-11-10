@@ -31,7 +31,7 @@ RUN chown -R root:root /lab && chmod -R 700 /lab \
     && git config --global user.name dev'
 
 # 进入容器的交互 shell 自动显示快速开始横幅；并加 menu/help 命令随时再调出
-RUN printf '\nalias menu="bash /lab/scripts/welcome.sh"\nalias help="bash /lab/scripts/welcome.sh"\n[ -f /lab/scripts/welcome.sh ] && bash /lab/scripts/welcome.sh\n' >> /root/.bashrc
+RUN printf '\nalias menu="bash /lab/scripts/welcome.sh"\nalias help="bash /lab/scripts/welcome.sh"\nalias deepseek="python3 /lab/scripts/chat-deepseek.py"\n[ -f /lab/scripts/welcome.sh ] && bash /lab/scripts/welcome.sh\n' >> /root/.bashrc
 
 # 以 root 运行：runner 需要 root 才能把被测 agent 降权到 sandbox、并 chown 工作区。
 # 被测 agent 永远以 sandbox（非 root）运行，不触犯 --dangerously-skip-permissions 的限制。
